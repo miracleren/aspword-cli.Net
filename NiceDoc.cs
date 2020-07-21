@@ -4,6 +4,7 @@ using Aspose.Words.Saving;
 using Aspose.Words.Tables;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Range = Aspose.Words.Range;
@@ -55,39 +56,46 @@ namespace aspword_cli
                 String con = par.ToString();
                 String[] cons = con.Split(':');
                 //纯内容标签替换
-                if (cons.Length == 1)
+                try
                 {
-                    String labVal = StringOf(values[con]);
-                    rangeReplace(con, labVal);
-                }
-                else
-                {
-                    if (cons.Length == 3)
+                    if (cons.Length == 1)
                     {
-                        //类型标签
-                        String typeName = cons[0];
-                        String typePar = cons[1];
-                        String typeVal = cons[2];
-                        if ("SC" == typeName)
+                        String labVal = StringOf(values[con]);
+                        rangeReplace(con, labVal);
+                    }
+                    else
+                    {
+                        if (cons.Length == 3)
                         {
-                            //单选
-                            if (StringOf(values[typePar]) == typeVal)
-                                rangeReplace(con, "√");
-                            else
-                                rangeReplace(con, "□");
-                        }
-                        else if ("MC" == typeName)
-                        {
-                            //多选
-                            //String value = StringOf(values.get(typePar));
-                            int parval = values[typePar] == null ? 0 : Convert.ToInt16(values[typePar]);
-                            int val = Convert.ToInt16(typeVal);
-                            if ((parval & val) == val)
-                                rangeReplace(con, "√");
-                            else
-                                rangeReplace(con, "□");
+                            //类型标签
+                            String typeName = cons[0];
+                            String typePar = cons[1];
+                            String typeVal = cons[2];
+                            if ("SC" == typeName)
+                            {
+                                //单选
+                                if (StringOf(values[typePar]) == typeVal)
+                                    rangeReplace(con, "√");
+                                else
+                                    rangeReplace(con, "□");
+                            }
+                            else if ("MC" == typeName)
+                            {
+                                //多选
+                                //String value = StringOf(values.get(typePar));
+                                int parval = values[typePar] == null ? 0 : Convert.ToInt16(values[typePar]);
+                                int val = Convert.ToInt16(typeVal);
+                                if ((parval & val) == val)
+                                    rangeReplace(con, "√");
+                                else
+                                    rangeReplace(con, "□");
+                            }
                         }
                     }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(con + "::" + e);
                 }
 
             }
@@ -188,7 +196,7 @@ namespace aspword_cli
                     String syn = cons[1];
                     if (syn.Contains("=="))
                     {
-                        String[] tem = syn.Replace("==","@").Split('@');
+                        String[] tem = syn.Replace("==", "@").Split('@');
                         if (StringOf(values[tem[0]]) == tem[1].ToString())
                         {
                             rangeReplace(con, "");
@@ -401,6 +409,20 @@ namespace aspword_cli
                 Console.WriteLine("保存失败：" + e);
                 return false;
             }
+        }
+
+        public MemoryStream saveStream()
+        {
+            MemoryStream ms = null;
+            try
+            {
+                doc.Save(ms, new OoxmlSaveOptions(SaveFormat.Doc));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("saveStream 保存失败：" + e);
+            }
+            return ms;
         }
 
         protected void finalize()

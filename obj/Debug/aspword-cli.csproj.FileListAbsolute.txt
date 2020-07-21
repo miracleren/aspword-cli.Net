@@ -1,8 +1,8 @@
-E:\_Work\aspword-cli\aspword-cli.Net\bin\Debug\aspword-cli.exe
 E:\_Work\aspword-cli\aspword-cli.Net\bin\Debug\aspword-cli.pdb
 E:\_Work\aspword-cli\aspword-cli.Net\bin\Debug\Aspose.Words.dll
-E:\_Work\aspword-cli\aspword-cli.Net\obj\Debug\aspword-cli.csprojAssemblyReference.cache
 E:\_Work\aspword-cli\aspword-cli.Net\obj\Debug\aspword-cli.csproj.CoreCompileInputs.cache
 E:\_Work\aspword-cli\aspword-cli.Net\obj\Debug\aspword-cli.csproj.CopyComplete
-E:\_Work\aspword-cli\aspword-cli.Net\obj\Debug\aspword-cli.exe
 E:\_Work\aspword-cli\aspword-cli.Net\obj\Debug\aspword-cli.pdb
+E:\_Work\aspword-cli\aspword-cli.Net\bin\Debug\aspword-cli.dll
+E:\_Work\aspword-cli\aspword-cli.Net\obj\Debug\aspword-cli.dll
+E:\_Work\aspword-cli\aspword-cli.Net\obj\Debug\aspword-cli.csprojAssemblyReference.cache
